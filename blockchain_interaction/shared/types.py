@@ -6,8 +6,11 @@ from pydantic import BaseModel, ConstrainedStr
 from shared.validation.eth_address import EthAddress
 
 
-def hex_bytes_to_string(hex_bytes: HexBytes):
-    return hex_bytes.hex()
+def hex_bytes_to_string(hex_bytes: HexBytes | str) -> str:
+    if isinstance(hex_bytes, HexBytes):
+        return hex_bytes.hex()
+    else:
+        return hex_bytes
 
 
 class HexString(ConstrainedStr):
